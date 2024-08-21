@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Big Lots</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f8f8f8;
+      }
+
+      header {
+        background-color: #2a9d8f;
+        color: white;
+        padding: 15px;
+        text-align: center;
+      }
+
+      nav a {
+        color: white;
+        margin: 0 15px;
+        text-decoration: none;
+      }
+
+      #product-listings {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        margin: 20px;
+      }
+
+      .product-card {
+        background-color: white;
+        border: 1px solid #ddd;
+        padding: 15px;
+        width: 220px;
+        margin: 15px;
+        text-align: center;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .product-card img {
+        max-width: 100%;
+        height: auto;
+      }
+
+      .product-card h2 {
+        font-size: 18px;
+        margin: 10px 0;
+      }
+
+      .product-card p {
+        font-size: 16px;
+        color: #555;
+      }
+
+      footer {
+        background-color: #2a9d8f;
+        color: white;
+        text-align: center;
+        padding: 10px 0;
+        position: fixed;
+        width: 100%;
+        bottom: 0;
+      }
+
+      #cart {
+        margin: 20px;
+      }
+
+      #cart ul {
+        list-style-type: none;
+        padding: 0;
+      }
+
+      #cart li {
+        background-color: #eee;
+        margin: 5px 0;
+        padding: 10px;
+      }
+
+      #total {
+        font-weight: bold;
+        font-size: 18px;
+        margin-top: 10px;
+      }
+
+      button {
+        background-color: #e76f51;
+        color: white;
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+        font-size: 16px;
+      }
+
+      button:hover {
+        background-color: #d65f45;
+      }
+
+      #checkout {
+        margin-top: 20px;
+        padding: 10px;
+        background-color: #264653;
+        color: white;
+        cursor: pointer;
+      }
+
+      #checkout:hover {
+        background-color: #1d3a47;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Grocery Store</h1>
+      <nav>
+        <a href="#">Home</a>
+        <a href="#">Shop</a>
+        <a href="#">Cart</a>
+      </nav>
+    </header>
+
+    <main id="product-listings">
+      <!-- Products will be dynamically inserted here -->
+    </main>
+
+    <div id="cart">
+      <h2>Your Cart</h2>
+      <ul id="cart-items">
+        <!-- Cart items will be dynamically inserted here -->
+      </ul>
+      <p id="total">Total: $0.00</p>
+      <button id="checkout">Checkout</button>
+    </div>
+
+    <footer>
+      <p>&copy; 2024 Grocery Store</p>
+    </footer>
+
+    <script>
+      // Array of product objects
+      const products = [
+        {
+          id: 1,
+          name: "Strawberry",
+          price: 200,
+          description: "Fresh Strawberries.",
+          image:
+            "https://www.bigbasket.com/media/uploads/p/m/10000263_13-fresho-strawberry.jpg?tr=w-1920,q=80",
+          height: "100px",
+        },
+        {
+          id: 2,
+          name: "Avocado",
+          price: 300,
+          description: "Fresh Avocado.",
+          image:
+            "https://www.bigbasket.com/media/uploads/p/m/10000312_20-fresho-avocado.jpg?tr=w-1920,q=80",
+          height: "1500px",
+        },
+        {
+          id: 3,
+          name: "Blueberry",
+          price: 270,
+          description: "Sweet Blueberries",
+          image:
+            "https://www.bigbasket.com/media/uploads/p/m/30009286_10-fresho-blueberry.jpg?tr=w-1920,q=80",
+          height: "100px",
+        },
+        {
+          id: 4,
+          name: "Tomatoes",
+          price: 70,
+          description: "Organic and fresh tomatoes.",
+          image:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6gN7qkux8WNWugxTzDv6S9RRuCRBm8uudeA&s",
+          height: "100px",
+        },
+        {
+          id: 5,
+          name: "Bread",
+          price: 50,
+          description: "Whole grain bread.",
+          image:
+            "https://www.bigbasket.com/media/uploads/p/m/70001169_13-english-oven-bread-brown.jpg?tr=w-1920,q=80",
+          height: "50px",
+        },
+        {
+          id: 6,
+          name: "Chocolate",
+          price: 60,
+          description: "Make your day delicious",
+          image:
+            "https://www.bigbasket.com/media/uploads/p/m/40290580_2-the-whole-truth-fruit-nut-milk-chocolate-no-added-sugar.jpg?tr=w-1920,q=80",
+          height: "50px",
+        },
+        {
+          id: 7,
+          name: "Crispello",
+          price: 40,
+          description: "Chocolate with crunch.",
+          image:
+            "https://rukminim2.flixcart.com/image/850/1000/xif0q/chocolate/c/k/y/-original-imagsrp6cbyhyc2t.jpeg?q=90&crop=false",
+          height: "50px",
+        },
+        {
+          id: 8,
+          name: "Tea",
+          price: 250,
+          description: "Make your mornings and evenings delightful.",
+          image:
+            "https://www.bigbasket.com/media/uploads/p/m/226491_13-red-label-tea-natural-care.jpg?tr=w-1920,q=80",
+          height: "50px",
+        },
+        {
+          id: 9,
+          name: "Cup Noodles",
+          price: 300,
+          description: "Masala Cup Noodles",
+          image:
+            "https://www.bigbasket.com/media/uploads/p/m/1214679_1-maggi-cuppa-noodles-masala-70-g-pack-of-3.jpg?tr=w-1920,q=80",
+          height: "50px",
+        },
+      ];
+
+      const cart = [];
+      function displayProducts() {
+        const productList = document.getElementById("product-listings");
+        products.forEach((product) => {
+          const productCard = `
+                    <div class="product-card">
+                        <img src="${product.image}" alt="${product.name}">
+                        <h2>${product.name}</h2>
+                        <p>${product.price.toFixed(2)}</p>
+                        <p>${product.description}</p>
+                        <button onclick="addToCart(${
+                          product.id
+                        })">Add to Cart</button>
+                    </div>
+                `;
+          productList.innerHTML += productCard;
+        });
+      }
+
+      // Function to add a product to the cart
+      function addToCart(productId) {
+        const product = products.find((p) => p.id === productId);
+        cart.push(product);
+        alert(`${product.name} has been added to your cart.`);
+        updateCart();
+      }
+
+      // Function to update cart display
+      function updateCart() {
+        const cartItems = document.getElementById("cart-items");
+        cartItems.innerHTML = "";
+        let total = 0;
+        cart.forEach((item) => {
+          cartItems.innerHTML += `<li>${item.name} - $${item.price.toFixed(
+            2
+          )}</li>`;
+          total += item.price;
+        });
+        document.getElementById("total").textContent = `Total: $${total.toFixed(
+          2
+        )}`;
+      }
+
+      // Function to handle checkout
+      document.getElementById("checkout").onclick = function () {
+        if (cart.length > 0) {
+          alert("Thank you for your purchase!");
+          cart.length = 0; // Clear the cart
+          updateCart(); // Update the cart display
+        } else {
+          alert("Your cart is empty!");
+        }
+      };
+
+      // Call the function to display products on page load
+      window.onload = displayProducts;
+    </script>
+  </body>
+</html>
